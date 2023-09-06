@@ -3,3 +3,37 @@ img {
     max-width: 70px;
     max-height: 70px;
 }
+
+.nav-wrapper {
+    background-color: #00C9FC !important;
+   
+  }
+
+.card {
+    background-color: #f9db0f;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 200px;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+    
+
+    
+    
+   
+
+}
+
+.card-action {
+    display: flex;
+    
+}
+
+
+.row .col.s6 {
+    width: 100%;
+}
