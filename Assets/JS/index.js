@@ -1,6 +1,7 @@
 //DOM
 var userProfileButton = document.querySelector("#user-profile-button");
 var userInput = document.querySelector("#first_name2");
+var signUpButton = document.querySelector("#sign-up-button");
 
 //DATA
 
@@ -45,6 +46,10 @@ userProfileButton.addEventListener("click", function () {
   } else {
     console.log("ERROR ENTER IN A PROPER NAME");
   }
+});
+
+signUpButton.addEventListener("click", function() {
+  window.location = "questionaire.html";
 });
 
 //INITIALIZATIONS
