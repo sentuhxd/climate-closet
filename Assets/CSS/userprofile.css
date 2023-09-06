@@ -1,0 +1,26 @@
+.col {
+  display: table-cell;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+}
+
+.container2 {
+  display: flex;
+}
+
+.container3 {
+  display: flex;
+}
+
+.container4 {
+  display: flex;
+}
+
+.container5 {
+  display: flex;
+}
+
+.container6 {
+  display: flex;
+}
