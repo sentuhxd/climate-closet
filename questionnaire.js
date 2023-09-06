@@ -1,4 +1,5 @@
 //DOM ELEMENTS
+var finishButton = document.querySelector("#finish-button");
 
 //DATA
 var userList = JSON.parse(localStorage.getItem("user-list")) || [];
@@ -40,5 +41,11 @@ function addPerson() {
 }
 
 //USER INTERACTIONS
+//When the finish button is clicked the person will be added to local storage
+// and the page will switch to their user profile
+finishButton.addEventListener("click", function () {
+  addPerson();
+  window.location = "userprofile.html";
+});
 
 //INITIALIZATIONS
