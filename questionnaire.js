@@ -1,5 +1,5 @@
 //DOM ELEMENTS
-var finishButton = document.querySelector("#finish-button");
+var submitButton = document.querySelector("#form-submit-button");
 
 //DATA
 var userList = JSON.parse(localStorage.getItem("user-list")) || [];
@@ -47,13 +47,13 @@ function addPerson() {
     ],
   };
   userList.push(personObject);
-  localStorage.setItem("user-list", userList);
+  localStorage.setItem("user-list", JSON.stringify(userList));
 }
 
 //USER INTERACTIONS
 //When the finish button is clicked the person will be added to local storage
 // and the page will switch to their user profile
-finishButton.addEventListener("click", function () {
+submitButton.addEventListener("click", function () {
   addPerson();
   window.location = "userprofile.html";
 });
