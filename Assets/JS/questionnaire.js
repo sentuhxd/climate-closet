@@ -47,6 +47,7 @@ function addPerson() {
     ],
   };
   userList.push(personObject);
+  localStorage.setItem("current-user", userName);
   localStorage.setItem("user-list", JSON.stringify(userList));
 }
 
