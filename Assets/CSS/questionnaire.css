@@ -19,3 +19,9 @@ h1 {
   font-size: 320%;
   padding: 21px;
 }
+
+#form-submit-button {
+  padding: 10px;
+  background: #f8ffdd;
+  border-radius: 10px;
+}
