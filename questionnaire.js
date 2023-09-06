@@ -1,4 +1,5 @@
 //DOM ELEMENTS
+var finishButton = document.querySelector("#finish-button");
 
 //DATA
 var userList = JSON.parse(localStorage.getItem("user-list")) || [];
@@ -7,17 +8,28 @@ var userList = JSON.parse(localStorage.getItem("user-list")) || [];
 function addPerson() {
   //Create an object for the person
 
-  var userName = document.querySelector("#user-name");
-  var answer1 = document.querySelector("#answer1");
-  var answer2 = document.querySelector("#answer2");
-  var answer3 = document.querySelector("#answer3");
-  var answer4 = document.querySelector("#answer4");
-  var answer5 = document.querySelector("#answer5");
-  var answer6 = document.querySelector("#answer6");
-  var answer7 = document.querySelector("#answer7");
-  var answer8 = document.querySelector("#answer8");
-  var answer9 = document.querySelector("#answer9");
-  var answer10 = document.querySelector("#answer10");
+  var userNameEl = document.querySelector("#user-name");
+  var userName = userNameEl.value;
+  var answer1El = document.querySelector("#answer1");
+  var answer1 = answer1El.value;
+  var answer2El = document.querySelector("#answer2");
+  var answer2 = answer2El.value;
+  var answer3El = document.querySelector("#answer3");
+  var answer3 = answer3El.value;
+  var answer4El = document.querySelector("#answer4");
+  var answer4 = answer4El.value;
+  var answer5El = document.querySelector("#answer5");
+  var answer5 = answer5El.value;
+  var answer6El = document.querySelector("#answer6");
+  var answer6 = answer6El.value;
+  var answer7El = document.querySelector("#answer7");
+  var answer7 = answer7El.value;
+  var answer8El = document.querySelector("#answer8");
+  var answer8 = answer8El.value;
+  var answer9El = document.querySelector("#answer9");
+  var answer9 = answer9El.value;
+  var answer10El = document.querySelector("#answer10");
+  var answer10 = answer10El.value;
 
   var personObject = {
     name: userName,
@@ -33,12 +45,17 @@ function addPerson() {
       answer9,
       answer10,
     ],
-    weight: 0,
   };
   userList.push(personObject);
   localStorage.setItem("user-list", userList);
 }
 
 //USER INTERACTIONS
+//When the finish button is clicked the person will be added to local storage
+// and the page will switch to their user profile
+finishButton.addEventListener("click", function () {
+  addPerson();
+  window.location = "userprofile.html";
+});
 
 //INITIALIZATIONS
