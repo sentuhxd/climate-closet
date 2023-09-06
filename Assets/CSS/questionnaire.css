@@ -12,16 +12,30 @@ form {
 
 h1 {
   text-align: center;
-  background: #00c9fc;
-  border: black 10px;
+  background: #41ddff;
   border-radius: 10px;
   margin: 25px;
   font-size: 320%;
   padding: 21px;
+  font-weight: bold;
 }
 
 #form-submit-button {
   padding: 10px;
   background: #f8ffdd;
   border-radius: 10px;
+}
+
+.input-field {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+p {
+  background: #f8ffdd;
+}
+
+header {
+  background: #00c9fc;
+  padding: 10px;
 }
