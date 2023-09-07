@@ -10,15 +10,14 @@ var currentUserInformation = getCurrentUserInformation();
 
 //Function to assign the current user to their information
 function getCurrentUserInformation() {
-  var userList = localStorage.getItem("user-list");
+  var userList = JSON.parse(localStorage.getItem("user-list"));
   for (var i = 0; i < userList.length; i++) {
     if (currentUser === userList[i].name) {
       return userList[i];
-    } else {
-      console.log("ERROR NAME NOT IN LIST");
-      return;
     }
   }
+  console.log("ERROR NAME NOT IN LIST");
+  return;
 }
 
 //Function to use current location to get weather
@@ -28,7 +27,7 @@ var getWeatherData = function () {
     currentLatitude +
     "2%2C" +
     currentLongitude +
-    "?unitGroup=metric&key=NAGXW443LV2TCEF9VGRU22RM9&contentType=json";
+    "?unitGroup=us&key=NAGXW443LV2TCEF9VGRU22RM9&contentType=json";
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
@@ -54,7 +53,6 @@ var getAirQuality = function () {
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data);
         displayAirQualityData(data);
       });
     } else {
@@ -70,13 +68,12 @@ var getCity = function () {
     currentLatitude +
     "," +
     currentLongitude +
-    "&sensor=true&key=AIzaSyCcl30UlbdkG6guslJdetUBgGL6lhP5MJw";
+    "&result_type=street_address&sensor=true&key=AIzaSyCcl30UlbdkG6guslJdetUBgGL6lhP5MJw";
 
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data);
-        //displayCity(data);
+        displayCity(data);
       });
     } else {
       alert("Error: " + response.statusText);
@@ -87,11 +84,15 @@ var getCity = function () {
 //This function will display the current user weather data
 function displayWeatherData(data) {
   var temperature = data.currentConditions.temp;
+  var weatherCondition = data.currentConditions.conditions;
   var uv = data.currentConditions.uvindex;
-  console.log(uv);
 
-  var tempEl = document.querySelector("#user-weather");
-  tempEl.textContent = "Today's Weather: " + temperature + " °F";
+  var tempEl = document.querySelector("#user-temperature");
+  var conditionEl = document.querySelector("#user-weather-conditions");
+  tempEl.textContent = "Today's Temperature: " + temperature + " °F";
+  conditionEl.textContent = "Today's Weather Conditons: " + weatherCondition;
+  userContainer.appendChild(tempEl);
+  userContainer.appendChild(conditionEl);
 
   var uvEl = document.querySelector("#user-uv");
   uvEl.textContent = "UV Index: " + uv;
@@ -99,18 +100,54 @@ function displayWeatherData(data) {
 }
 
 //This function will display the current user air quailty data
-// function displayAirQualityData(data) {
+function displayAirQualityData(data) {
+  var aqi = data.data.aqi;
 
-// }
+  var airQualityEl = document.querySelector("#user-airquality");
+  var airQualitySpan = document.querySelector("#aq-span");
+  airQualityEl.textContent = "Air Quality Index: ";
+  airQualitySpan.textContent = aqi;
+
+  if (aqi >= 0 && aqi <= 50) {
+    airQualitySpan.setAttribute("style", "color: green");
+  } else if (aqi >= 51 && aqi <= 100) {
+    airQualitySpan.setAttribute("style", "color: yellow");
+  } else if (aqi >= 101 && aqi <= 150) {
+    airQualitySpan.setAttribute("style", "color: orange");
+  } else if (aqi >= 151 && aqi <= 200) {
+    airQualitySpan.setAttribute("style", "color: red");
+  } else if (aqi >= 201 && aqi <= 300) {
+    airQualitySpan.setAttribute("style", "color: violet");
+  } else {
+    airQualitySpan.setAttribute("style", "color: burgandy");
+  }
+  airQualityEl.appendChild(airQualitySpan);
+  userContainer.appendChild(airQualityEl);
+}
 
 //This function will display the current user's city
-function displayCity(data) {}
+function displayCity(data) {
+  var address = data.results[0].formatted_address;
+  var locationEl = document.querySelector("#user-location");
+  locationEl.textContent = address;
+  userContainer.appendChild(locationEl);
+}
+
+//This function will create a google map based on the current location of lat and long
+function initMap() {
+  var currentLocation = { lat: currentLatitude, lng: currentLongitude };
+  var map = new google.maps.Map(document.querySelector("#map-container"), {
+    zoom: 4,
+    center: currentLocation,
+  });
+  var marker = new google.maps.Marker({ position: currentLocation, map: map });
+}
 
 //This function will initalize the data on the page
 function init() {
   //Display the current name
   var nameEl = document.querySelector("#user-name");
-  nameEl.textContent = currentUser;
+  nameEl.textContent = "Username: " + currentUser;
   userContainer.appendChild(nameEl);
 
   //Display the user location
@@ -119,7 +156,8 @@ function init() {
   //Display Weather Information
   getWeatherData();
 
-  //Display
+  //Display air quality information
+  getAirQuality();
 }
 
 //USER INTERACTIONS
@@ -129,7 +167,6 @@ function init() {
 window.navigator.geolocation.getCurrentPosition(function (data) {
   currentLatitude = data.coords.latitude;
   currentLongitude = data.coords.longitude;
-  console.log(currentLatitude + " " + currentLongitude);
 
   init();
 });
