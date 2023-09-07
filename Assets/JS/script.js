@@ -4,6 +4,10 @@ var userContainer = document.querySelector("#user-container");
 //DATA
 var currentLatitude = 0;
 var currentLongitude = 0;
+var currentTemperature = 0;
+var currentAqi = 0;
+var currentUV = 0;
+var currentWeatherCondition = "";
 var currentUser = localStorage.getItem("current-user");
 var currentUserInformation = getCurrentUserInformation();
 var topList = [
@@ -24,6 +28,13 @@ var shoeList = [
 ];
 var accessorieList = ["hat", "sunglasses", "mask", "umbrella"];
 
+var clothing = {
+  topList: new Set(topList),
+  bottomList: new Set(bottomList),
+  shoeList: new Set(shoeList),
+  accessorieList: new Set(accessorieList),
+  // `  suggestionList: n,`
+};
 //FUNCTION
 
 //Function to assign the current user to their information
@@ -50,8 +61,11 @@ var getWeatherData = function () {
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data);
+        currentTemperature = data.currentConditions.temp;
+        currentWeatherCondition = data.currentConditions.conditions;
+        currentUV = data.currentConditions.uvindex;
         displayWeatherData(data);
+        getAirQuality();
       });
     } else {
       alert("Error: " + response.statusText);
@@ -71,7 +85,9 @@ var getAirQuality = function () {
   fetch(apiUrl).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
+        currentAqi = data.data.aqi;
         displayAirQualityData(data);
+        createWardrobe();
       });
     } else {
       alert("Error: " + response.statusText);
@@ -92,6 +108,7 @@ var getCity = function () {
     if (response.ok) {
       response.json().then(function (data) {
         displayCity(data);
+        getWeatherData();
       });
     } else {
       alert("Error: " + response.statusText);
@@ -155,7 +172,7 @@ function displayCity(data) {
 function initMap() {
   var currentLocation = { lat: currentLatitude, lng: currentLongitude };
   var map = new google.maps.Map(document.querySelector("#map-container"), {
-    zoom: 4,
+    zoom: 10,
     center: currentLocation,
   });
   var marker = new google.maps.Marker({ position: currentLocation, map: map });
@@ -163,29 +180,48 @@ function initMap() {
 
 //function to select wardrobe for the day
 function createWardrobe() {
-  // var topList = [
-  //   "t-shirt-image",
-  //   "sweater",
-  //   "long-sleeve",
-  //   "light-jacket",
-  //   "winter-coat",
-  //   "rain-coat",
-  // ];
-  // var bottomList = ["pants", "shorts"];
-  // var shoeList = [
-  //   "closed-toe-shoe",
-  //   "snow-boots",
-  //   "rain-boots",
-  //   "sneakers",
-  //   "sandals",
-  // ];
-  // var accessorieList = ["hat", "sunglasses", "mask", "umbrella"];
   console.log(currentUserInformation);
 
   if (currentUserInformation.answers[4] === "No") {
-    topList.splice(4, 2);
-    shoeList.splice(1, 2);
-    accessorieList.splice(3, 1);
+    clothing.topList.delete("rain-coat");
+    clothing.topList.delete("winter-coat");
+    clothing.shoeList.delete("snow-boots");
+    clothing.shoeList.delete("rain-boots");
+    clothing.accessorieList.delete("umbrella");
+  }
+
+  console.log(clothing);
+
+  if (currentUserInformation.answers[5] === "No") {
+    clothing.topList.delete("sweater");
+    clothing.topList.delete("light-jacket");
+  }
+
+  if (currentUserInformation.answers[6] === "No") {
+    clothing.accessorieList.delete("mask");
+  }
+
+  if (currentUserInformation[7] === "No") {
+    clothing.accessorieList.delete("hat");
+    clothing.accessorieList.delete("sunglasses");
+  }
+
+  if (currentUserInformation[9] === "Yes") {
+    clothing.bottomList.delete("shorts");
+    clothing.topList.delete("t-shirt-image");
+  }
+
+  console.log(currentWeatherCondition);
+  if (currentWeatherCondition.includes("Clear")) {
+    clothing.topList.delete("rain-coat");
+  } else if (currentWeatherCondition.includes("rain")) {
+    if (clothing.topList.has("rain-coat")) {
+    }
+  } else if (currentWeatherCondition.includes("snow")) {
+  } else if (
+    currentWeatherCondition.includes("cloud") ||
+    currentWeatherCondition.includes("overcast")
+  ) {
   }
 }
 
@@ -197,16 +233,9 @@ function init() {
   userContainer.appendChild(nameEl);
 
   //Display the user location
+
+  //Get will call get weather which calls get air quality which does createWardrobe
   getCity();
-
-  //Display Weather Information
-  getWeatherData();
-
-  //Display air quality information
-  getAirQuality();
-
-  //Create wardrobe
-  createWardrobe();
 }
 
 //USER INTERACTIONS
@@ -218,6 +247,7 @@ window.navigator.geolocation.getCurrentPosition(function (data) {
   currentLongitude = data.coords.longitude;
 
   init();
+  initMap();
 });
 
 //Call function that will set the user profile with current user information
