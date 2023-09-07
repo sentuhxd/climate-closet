@@ -47,7 +47,7 @@ userProfileButton.addEventListener("click", function () {
   if (checkBoolean) {
     window.location = "userprofile.html";
   } else {
-    error.innerHTML = "please enter a username";
+    error.innerHTML = "Please enter a Username";
     inputField.appendChild(error);
     console.log("ERROR ENTER IN A PROPER NAME");
   }
