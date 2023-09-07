@@ -6,6 +6,24 @@ var currentLatitude = 0;
 var currentLongitude = 0;
 var currentUser = localStorage.getItem("current-user");
 var currentUserInformation = getCurrentUserInformation();
+var topList = [
+  "t-shirt-image",
+  "sweater",
+  "long-sleeve",
+  "light-jacket",
+  "winter-coat",
+  "rain-coat",
+];
+var bottomList = ["pants", "shorts"];
+var shoeList = [
+  "closed-toe-shoe",
+  "snow-boots",
+  "rain-boots",
+  "sneakers",
+  "sandals",
+];
+var accessorieList = ["hat", "sunglasses", "mask", "umbrella"];
+
 //FUNCTION
 
 //Function to assign the current user to their information
@@ -143,6 +161,34 @@ function initMap() {
   var marker = new google.maps.Marker({ position: currentLocation, map: map });
 }
 
+//function to select wardrobe for the day
+function createWardrobe() {
+  // var topList = [
+  //   "t-shirt-image",
+  //   "sweater",
+  //   "long-sleeve",
+  //   "light-jacket",
+  //   "winter-coat",
+  //   "rain-coat",
+  // ];
+  // var bottomList = ["pants", "shorts"];
+  // var shoeList = [
+  //   "closed-toe-shoe",
+  //   "snow-boots",
+  //   "rain-boots",
+  //   "sneakers",
+  //   "sandals",
+  // ];
+  // var accessorieList = ["hat", "sunglasses", "mask", "umbrella"];
+  console.log(currentUserInformation);
+
+  if (currentUserInformation.answers[4] === "No") {
+    topList.splice(4, 2);
+    shoeList.splice(1, 2);
+    accessorieList.splice(3, 1);
+  }
+}
+
 //This function will initalize the data on the page
 function init() {
   //Display the current name
@@ -158,6 +204,9 @@ function init() {
 
   //Display air quality information
   getAirQuality();
+
+  //Create wardrobe
+  createWardrobe();
 }
 
 //USER INTERACTIONS
