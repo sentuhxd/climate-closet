@@ -1,3 +1,11 @@
+.top {
+  height: 300px;
+}
+
+.card {
+  height: 100%;
+}
+
 .col {
   display: table-cell;
   flex-direction: column;
@@ -5,8 +13,13 @@
   flex: 1;
 }
 
+.container1 {
+  height: 100%;
+}
+
 .container2 {
   display: flex;
+  height: 100%;
 }
 
 .container3 {
