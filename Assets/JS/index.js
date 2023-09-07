@@ -2,6 +2,8 @@
 var userProfileButton = document.querySelector("#user-profile-button");
 var userInput = document.querySelector("#first_name2");
 var signUpButton = document.querySelector("#sign-up-button");
+var error = document.querySelector("#errors");
+var inputField = document.querySelector("#inField");
 
 //DATA
 
@@ -35,6 +37,7 @@ function checkName() {
   }
 }
 
+
 //USER INTERACTIONS
 //This will track when the user clicks enter on the homepage
 userProfileButton.addEventListener("click", function () {
@@ -44,6 +47,8 @@ userProfileButton.addEventListener("click", function () {
   if (checkBoolean) {
     window.location = "userprofile.html";
   } else {
+    error.innerHTML = "please enter a username";
+    inputField.appendChild(error);
     console.log("ERROR ENTER IN A PROPER NAME");
   }
 });
