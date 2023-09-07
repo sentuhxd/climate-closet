@@ -9,37 +9,25 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./Assets/CSS/userprofile.css" />
   </head>
   <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="./Assets/CSS/userprofile.css"></script>
 
-<<<<<<< HEAD
-    <div class="row1">
-      <div class="row">
-        <div class="card col s6">
-          <div id="user-container" class="container1">
-            <h4 id="user-name">"User Name"</h4>
-            <h4 id="user-location">"User Location"</h4>
-            <h4 id="user-weather">"Today's Weather: __ °F"</h4>
-            <h4 id="user-uv">"UV Index: ___"</h4>
-            <h4 id="user-airquality">"Air Quality: ___"</h4>
-          </div>
-=======
     <div class="card">
       <div class="outer-container">
         <div id="user-container" class="container1">
-          <h4 id="user-name">"User Name"</h4>
-          <h4 id="user-location">"User Location"</h4>
-          <h4 id="user-weather">"Today's Weather: __ °F"</h4>
-          <h4 id="user-uv">"UV Index: ___"</h4>
-          <h4 id="user-airquality">"Air Quality: ___"</h4>
->>>>>>> 2fc28f848070af492eb29dca8731635974a9ebf5
+          <h4 id="user-name"></h4>
+          <h4 id="user-location"></h4>
+          <h4 id="user-temperature"></h4>
+          <h4 id="user-weather-conditions"></h4>
+          <h4 id="user-uv"></h4>
+          <h4 id="user-airquality"><span id="aq-span"></span></h4>
         </div>
-        <div class="card col s6">
-          <div class="container2">
+        <div class="card">
+          <div id="map-container" class="container2">
             <h3>Google Maps</h3>
             <img src="" alt="Maps" style="width: 100%" />
           </div>
@@ -49,6 +37,7 @@
 
     <div class="card">
       <img src="" alt="Shirt" style="width: 100%" />
+      <img src="#" alt="Shirt" style="width: 100%" />
       <div class="container3">
         <p>"Shirt"</p>
       </div>
@@ -56,24 +45,30 @@
 
     <div class="card">
       <img src="" alt="Pants" style="width: 100%" />
+      <img src="#" alt="Pants" style="width: 100%" />
       <div class="container4">
         <p>"Pants"</p>
       </div>
     </div>
 
     <div class="card">
-      <img src="" alt="Shoes" style="width: 100%" />
+      <img src="#" alt="Shoes" style="width: 100%" />
       <div class="container5">
         <p>"Shoes"</p>
       </div>
     </div>
 
     <div class="card">
-      <img src="" alt="Accessories" style="width: 100%" />
+      <img src="#" alt="Accessories" style="width: 100%" />
       <div class="container6">
         <p>"Accessories"</p>
       </div>
     </div>
     <script src="./Assets/JS/script.js"></script>
+    <script
+      async
+      defer
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcl30UlbdkG6guslJdetUBgGL6lhP5MJw&callback=initMap"
+    ></script>
   </body>
 </html>
