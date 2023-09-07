@@ -211,12 +211,32 @@ function createWardrobe() {
     clothing.topList.delete("t-shirt-image");
   }
 
+  //Setting temperature bases
+  var preferedTemp = 0;
+
+  //Prefered season
+  if (currentUserInformation[1] == "Summer") {
+    preferedTemp = 70;
+  } else if (currentUserInformation[1] == "Winter") {
+    preferedTemp = 50;
+  } else if (currentUserInformation[1] == "Spring") {
+    preferedTemp = 65;
+  } else if (currentUserInformation[1] == "Fall") {
+    preferedTemp = 55;
+  }
+
+  //Prefer cooler or warmer
+  if (currentUserInformation[2] === "Warmer") {
+    preferedTemp += 5;
+  } else {
+    preferedTemp -= 5;
+  }
+
+  //Setting clothes based on weather conditrion and temp
   console.log(currentWeatherCondition);
   if (currentWeatherCondition.includes("Clear")) {
     clothing.topList.delete("rain-coat");
   } else if (currentWeatherCondition.includes("rain")) {
-    if (clothing.topList.has("rain-coat")) {
-    }
   } else if (currentWeatherCondition.includes("snow")) {
   } else if (
     currentWeatherCondition.includes("cloud") ||
