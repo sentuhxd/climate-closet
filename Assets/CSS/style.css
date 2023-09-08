@@ -47,3 +47,9 @@ html {
 .row .col.s6 {
     width: 100%;
 }
+
+.btn {
+    margin-left: 10px;
+    margin-right: 10px;
+
+}
