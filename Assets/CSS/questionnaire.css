@@ -1,4 +1,12 @@
-select {
+html { 
+    background: url("../img/topofclouds.jpeg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+ select {
   display: block;
 }
 
@@ -20,22 +28,36 @@ h1 {
   font-weight: bold;
 }
 
-#form-submit-button {
-  padding: 10px;
-  background: #f8ffdd;
-  border-radius: 10px;
-}
+
 
 .input-field {
   padding-top: 10px;
   padding-bottom: 10px;
+  background: #f9db0f;
 }
 
 p {
-  background: #f8ffdd;
+  background: #f9db0f;
+  font-weight: bolder;
+  text-align: center;
 }
 
 header {
   background: #00c9fc;
   padding: 10px;
+}
+
+
+.card {
+  height: 100%;
+  background-color: #f9db0f;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  padding: 5%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 0%;
+  margin-bottom: 5%;
+ 
 }
