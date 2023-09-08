@@ -87,7 +87,8 @@ var getAirQuality = function () {
       response.json().then(function (data) {
         currentAqi = data.data.aqi;
         displayAirQualityData(data);
-        createWardrobe();
+        var currentSuggestionList = createWardrobe();
+        console.log(currentSuggestionList);
       });
     } else {
       alert("Error: " + response.statusText);
@@ -180,8 +181,6 @@ function initMap() {
 
 //function to select wardrobe for the day
 function createWardrobe() {
-  console.log(currentUserInformation);
-
   if (currentUserInformation.answers[4] === "No") {
     clothing.topList.delete("rain-coat");
     clothing.topList.delete("winter-coat");
@@ -189,8 +188,6 @@ function createWardrobe() {
     clothing.shoeList.delete("rain-boots");
     clothing.accessorieList.delete("umbrella");
   }
-
-  console.log(clothing);
 
   if (currentUserInformation.answers[5] === "No") {
     clothing.topList.delete("sweater");
@@ -221,7 +218,6 @@ function createWardrobe() {
     preferedTemp = 50;
   } else if (currentUserInformation.answers[1] === "Spring") {
     preferedTemp = 65;
-    console.log("HERERERERERR" + preferedTemp);
   } else if (currentUserInformation.answers[1] === "Fall") {
     preferedTemp = 55;
   }
@@ -232,14 +228,6 @@ function createWardrobe() {
   } else {
     preferedTemp -= 5;
   }
-
-  // var currentTemperature = 0;
-  // var currentAqi = 0;
-  // var currentUV = 0;
-  // var currentWeatherCondition = "";
-  currentWeatherCondition = "tornado";
-  console.log(currentTemperature + " " + preferedTemp);
-  currentTemperature = 41;
 
   //Setting clothes based on weather conditrion and temp
 
@@ -546,7 +534,7 @@ function createWardrobe() {
     }
   }
 
-  console.log(clothing.suggestionList);
+  return clothing.suggestionList;
 }
 
 //This function will initalize the data on the page
