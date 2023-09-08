@@ -201,12 +201,12 @@ function createWardrobe() {
     clothing.accessorieList.delete("mask");
   }
 
-  if (currentUserInformation[7] === "No") {
+  if (currentUserInformation.answers[7] === "No") {
     clothing.accessorieList.delete("hat");
     clothing.accessorieList.delete("sunglasses");
   }
 
-  if (currentUserInformation[9] === "Yes") {
+  if (currentUserInformation.answers[9] === "Yes") {
     clothing.bottomList.delete("shorts");
     clothing.topList.delete("t-shirt-image");
   }
@@ -215,18 +215,19 @@ function createWardrobe() {
   var preferedTemp = 0;
 
   //Prefered season
-  if (currentUserInformation[1] === "Summer") {
+  if (currentUserInformation.answers[1] === "Summer") {
     preferedTemp = 70;
-  } else if (currentUserInformation[1] === "Winter") {
+  } else if (currentUserInformation.answers[1] === "Winter") {
     preferedTemp = 50;
-  } else if (currentUserInformation[1] === "Spring") {
+  } else if (currentUserInformation.answers[1] === "Spring") {
     preferedTemp = 65;
-  } else if (currentUserInformation[1] === "Fall") {
+    console.log("HERERERERERR" + preferedTemp);
+  } else if (currentUserInformation.answers[1] === "Fall") {
     preferedTemp = 55;
   }
 
   //Prefer cooler or warmer
-  if (currentUserInformation[2] === "Warmer") {
+  if (currentUserInformation.answers[2] === "Warmer") {
     preferedTemp += 5;
   } else {
     preferedTemp -= 5;
@@ -237,6 +238,8 @@ function createWardrobe() {
   // var currentUV = 0;
   // var currentWeatherCondition = "";
   currentWeatherCondition = "rain";
+  console.log(currentTemperature + " " + preferedTemp);
+  currentTemperature = 41;
 
   //Setting clothes based on weather conditrion and temp
 
@@ -277,7 +280,7 @@ function createWardrobe() {
     } else if (currentTemperature < preferedTemp && currentTemperature < 40) {
       //accessories
       clothing.suggestionList.add("umbrella");
-      if (clothing.accessorieList.has(hat)) {
+      if (clothing.accessorieList.has("hat")) {
         clothing.suggestionList.add("hat");
       }
 
@@ -306,7 +309,7 @@ function createWardrobe() {
     } else if (currentTemperature <= preferedTemp) {
       //accessories
       clothing.suggestionList.add("umbrella");
-      if (clothing.accessorieList.has(hat)) {
+      if (clothing.accessorieList.has("hat")) {
         clothing.suggestionList.add("hat");
       }
 
@@ -329,6 +332,34 @@ function createWardrobe() {
       }
     }
   } else if (currentWeatherCondition.includes("snow")) {
+    //No weather checks because snow will be really cold
+    //accessories
+    if (clothing.accessorieList.has("hat")) {
+      clothing.suggestionList.add("hat");
+    }
+
+    //tops
+    clothing.suggestionList.add("sweater");
+    clothing.suggestionList.add("long-sleeve");
+    if (clothing.topList.has("winter-coat")) {
+      clothing.suggestionList.add("winter-coat");
+    } else {
+      clothing.suggestionList.add("light-jacket");
+    }
+
+    //Bottom
+    clothing.suggestionList.add("pants");
+
+    //shoes
+    if (currentUserInformation.answers[8] === "Boots") {
+      if (clothing.shoeList.has("snow-boots")) {
+        clothing.suggestionList.add("snow-boots");
+      } else {
+        clothing.suggestionList.add("sneakers");
+      }
+    } else {
+      clothing.suggestionList.add("sneakers");
+    }
   } else if (
     currentWeatherCondition.includes("cloud") ||
     currentWeatherCondition.includes("overcast")
