@@ -238,6 +238,8 @@ function createWardrobe() {
   if (currentWeatherCondition.includes("Clear")) {
     //this scenario its hot and clear
     if (currentTemperature > preferedTemp) {
+      clothing.suggestionObject.description =
+        "Clear weather but It is really hot out today! 🔥😎";
       //accessories
       if (clothing.accessorieList.has("hat")) {
         clothing.suggestionObject.list.add("hat");
@@ -265,6 +267,8 @@ function createWardrobe() {
 
       //This scenario is it is really cold but clear
     } else if (currentTemperature < preferedTemp && currentTemperature < 40) {
+      clothing.suggestionObject.description =
+        "The sky is clear but is brick out! 🧱🥶";
       //accessories
       if (clothing.accessorieList.has("hat")) {
         clothing.suggestionObject.list.add("hat");
@@ -290,6 +294,8 @@ function createWardrobe() {
 
       //if it is clear at an average temp
     } else if (currentTemperature <= preferedTemp) {
+      clothing.suggestionObject.description =
+        "The sky is clear but it is a chilly day out! 🍃";
       //accessories
       if (clothing.accessorieList.has("hat")) {
         clothing.suggestionObject.list.add("hat");
@@ -310,6 +316,8 @@ function createWardrobe() {
   } else if (currentWeatherCondition.includes("rain")) {
     //This scenario is a warmer rain (sun shower)
     if (currentTemperature > preferedTemp) {
+      clothing.suggestionObject.description =
+        "It is hot out but warm showers! 🌦️";
       //accessories
       clothing.suggestionObject.list.add("umbrella");
 
@@ -341,6 +349,7 @@ function createWardrobe() {
       }
       //This scenario is if it is raining but really cold rain
     } else if (currentTemperature < preferedTemp && currentTemperature < 40) {
+      clothing.suggestionObject.description = "It is brickage rain! ⛈️🥶";
       //accessories
       clothing.suggestionObject.list.add("umbrella");
       if (clothing.accessorieList.has("hat")) {
@@ -370,6 +379,7 @@ function createWardrobe() {
 
       //raining at average temp
     } else if (currentTemperature <= preferedTemp) {
+      clothing.suggestionObject.description = "Chilly rain! 🌧️";
       //accessories
       clothing.suggestionObject.list.add("umbrella");
       if (clothing.accessorieList.has("hat")) {
@@ -395,6 +405,7 @@ function createWardrobe() {
       }
     }
   } else if (currentWeatherCondition.includes("snow")) {
+    clothing.suggestionObject.description = "Snow Day! Wooooooo ❄️⛄🏂";
     //No weather checks because snow will be really cold
     //accessories
     if (clothing.accessorieList.has("hat")) {
@@ -429,6 +440,8 @@ function createWardrobe() {
   ) {
     //This scenario is a warmer clouds
     if (currentTemperature > preferedTemp) {
+      clothing.suggestionObject.description =
+        "A great day to go outside! Cloudy but nice! 🌥️";
       //no accesories
 
       //tops
@@ -450,6 +463,8 @@ function createWardrobe() {
 
       //This scenario is it is really cold clouds
     } else if (currentTemperature < preferedTemp && currentTemperature < 40) {
+      clothing.suggestionObject.description =
+        "Cloudy and really cold! BRRRRR ☁️🥶";
       //no accessories
 
       //tops
@@ -469,6 +484,7 @@ function createWardrobe() {
 
       //if it is cloudy at an average temp
     } else if (currentTemperature <= preferedTemp) {
+      clothing.suggestionObject.description = "Gloomy Cloudy normal day! ☁️😒";
       //no accessories
 
       //tops
@@ -483,6 +499,8 @@ function createWardrobe() {
 
     //We dont have weather condition so we go based on the temperature
   } else {
+    clothing.suggestionObject.description =
+      "We don't know the weather condition but have a great day! 😊";
     //This scenario is a warmer clouds
     if (currentTemperature > preferedTemp) {
       //no accesories
@@ -541,6 +559,13 @@ function createWardrobe() {
   //Check air quality and if sensitive to masks then add to suggestion list
   if (currentAqi >= 150) {
     clothing.suggestionObject.list.add("mask");
+  }
+
+  //Check if the uv is too high
+  if (currentUV >= 6) {
+    clothing.suggestionObject.description =
+      clothing.suggestionObject.description +
+      " The UV is high! Wear suntan lotion! 🧴🌞";
   }
 
   return clothing.suggestionObject;
