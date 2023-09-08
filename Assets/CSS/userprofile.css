@@ -24,7 +24,7 @@ html {
   background-color: #b2fbff;
   padding: 10%;
   display: flex;
-  margin: 2% 5% 5% 10%;
+  margin: 10% 5% 5% 10%;
 }
 
 .card2 {
@@ -32,16 +32,16 @@ html {
   background-color: #ffffff;
   display: block;
   padding: 5%;
-  margin-left: 10%;
+  /* margin-left: 10%;
   margin-right: 10%;
   margin-top: 0%;
-  margin-bottom: 5%;
+  margin-bottom: 5%; */
 }
 
 .col {
   display: table-cell;
   flex-direction: column;
-  flex-basis: 100%;
+  /* flex-basis: 100%; */
   flex: 1;
   justify-content: space-between;
 }
@@ -57,16 +57,37 @@ html {
 
 .container3 {
   display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
 }
 
-.container4 {
-  display: flex;
+.container3 img {
+  width: 100%;
+  height: auto;
 }
 
-.container5 {
+.container3 div {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  background: white;
+  max-width: 20vw;
+  height: 20vw;
+  flex-basis: 18%;
+  margin: 2px;
 }
 
-.container6 {
+.container3.row {
+  height: auto;
+}
+
+#suggestion-message {
   display: flex;
+  justify-content: center;
+  background-color: #b2fbff;
+  margin: 10%;
+}
+
+#suggestion-message p {
+  justify-content: center;
 }
