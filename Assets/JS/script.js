@@ -578,6 +578,12 @@ function displaySuggestions(suggestionObject) {
   for (var i = 0; i < suggestionObject.list.length; i++) {
     var divEl = document.createElement("div");
     divEl.setAttribute("class", "card2 col s1");
+
+    //Paragraph guy
+    var pEl = document.createElement("p");
+    pEl.textContent = suggestionObject.description;
+
+    //Picture guy
     var imgEl = document.createElement("img");
     imgEl.setAttribute(
       "src",
@@ -586,6 +592,7 @@ function displaySuggestions(suggestionObject) {
     imgEl.setAttribute("alt", suggestionObject.list[i]);
 
     divEl.appendChild(imgEl);
+    suggestionDivEl.appendChild(pEl);
     suggestionDivEl.appendChild(divEl);
   }
 }
