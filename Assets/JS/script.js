@@ -91,7 +91,6 @@ var getAirQuality = function () {
         currentAqi = data.data.aqi;
         displayAirQualityData(data);
         var currentSuggestionObject = createWardrobe();
-        console.log(currentSuggestionObject);
         displaySuggestions(currentSuggestionObject);
       });
     } else {
@@ -574,25 +573,23 @@ function createWardrobe() {
 //Function to display the current suggestion list
 function displaySuggestions(suggestionObject) {
   var suggestionDivEl = document.querySelector("#suggestion-container");
+  var paragraphDivEl = document.querySelector("#suggestion-message");
 
-  for (var i = 0; i < suggestionObject.list.length; i++) {
+  //Paragraph guy
+  var pEl = document.createElement("p");
+  pEl.textContent = suggestionObject.description;
+
+  for (const value of suggestionObject.list) {
     var divEl = document.createElement("div");
-    divEl.setAttribute("class", "card2 col s1");
-
-    //Paragraph guy
-    var pEl = document.createElement("p");
-    pEl.textContent = suggestionObject.description;
+    divEl.setAttribute("class", "card2 col");
 
     //Picture guy
     var imgEl = document.createElement("img");
-    imgEl.setAttribute(
-      "src",
-      "./assets/Item-Images/" + suggestionObject.list[i]
-    );
-    imgEl.setAttribute("alt", suggestionObject.list[i]);
+    imgEl.setAttribute("src", "./assets/Item-Images/" + value + ".png");
+    imgEl.setAttribute("alt", value);
 
+    paragraphDivEl.appendChild(pEl);
     divEl.appendChild(imgEl);
-    suggestionDivEl.appendChild(pEl);
     suggestionDivEl.appendChild(divEl);
   }
 }
