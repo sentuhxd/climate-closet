@@ -237,7 +237,7 @@ function createWardrobe() {
   // var currentAqi = 0;
   // var currentUV = 0;
   // var currentWeatherCondition = "";
-  currentWeatherCondition = "rain";
+  currentWeatherCondition = "snow";
   console.log(currentTemperature + " " + preferedTemp);
   currentTemperature = 41;
 
@@ -364,6 +364,55 @@ function createWardrobe() {
     currentWeatherCondition.includes("cloud") ||
     currentWeatherCondition.includes("overcast")
   ) {
+    //This scenario is a warmer clouds
+    if (currentTemperature > preferedTemp) {
+      //no accesories
+
+      //tops
+      if (clothing.topList.has("t-shirt-image")) {
+        clothing.suggestionList.add("t-shirt-image");
+      } else {
+        clothing.suggestionList.add("long-sleeve");
+      }
+
+      //bottoms
+      if (clothing.bottomList.has("shorts")) {
+        clothing.suggestionList.add("shorts");
+      } else {
+        clothing.suggestionList.add("pants");
+      }
+
+      //shoes
+      clothing.suggestionList.add("sneakers");
+
+      //This scenario is it is really cold clouds
+    } else if (currentTemperature < preferedTemp && currentTemperature < 40) {
+      //no accessories
+
+      //tops
+      clothing.suggestionList.add("sweater");
+      clothing.suggestionList.add("long-sleeve");
+      clothing.suggestionList.add("light-jacket");
+
+      //bottom
+      clothing.suggestionList.add("pants");
+
+      //shoes
+      clothing.suggestionList.add("sneakers");
+
+      //if it is cloudy at an average temp
+    } else if (currentTemperature <= preferedTemp) {
+      //no accessories
+
+      //tops
+      clothing.suggestionList.add("long-sleeve");
+
+      //bottom
+      clothing.suggestionList.add("pants");
+
+      //shoes
+      clothing.suggestionList.add("sneakers");
+    }
   }
 
   console.log(clothing.suggestionList);
