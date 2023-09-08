@@ -33,7 +33,7 @@ var clothing = {
   bottomList: new Set(bottomList),
   shoeList: new Set(shoeList),
   accessorieList: new Set(accessorieList),
-  // `  suggestionList: n,`
+  suggestionList: new Set(),
 };
 //FUNCTION
 
@@ -215,13 +215,13 @@ function createWardrobe() {
   var preferedTemp = 0;
 
   //Prefered season
-  if (currentUserInformation[1] == "Summer") {
+  if (currentUserInformation[1] === "Summer") {
     preferedTemp = 70;
-  } else if (currentUserInformation[1] == "Winter") {
+  } else if (currentUserInformation[1] === "Winter") {
     preferedTemp = 50;
-  } else if (currentUserInformation[1] == "Spring") {
+  } else if (currentUserInformation[1] === "Spring") {
     preferedTemp = 65;
-  } else if (currentUserInformation[1] == "Fall") {
+  } else if (currentUserInformation[1] === "Fall") {
     preferedTemp = 55;
   }
 
@@ -232,17 +232,110 @@ function createWardrobe() {
     preferedTemp -= 5;
   }
 
+  // var currentTemperature = 0;
+  // var currentAqi = 0;
+  // var currentUV = 0;
+  // var currentWeatherCondition = "";
+  currentWeatherCondition = "rain";
+
   //Setting clothes based on weather conditrion and temp
-  console.log(currentWeatherCondition);
+
   if (currentWeatherCondition.includes("Clear")) {
-    clothing.topList.delete("rain-coat");
   } else if (currentWeatherCondition.includes("rain")) {
+    //This scenario is a warmer rain (sun shower)
+    if (currentTemperature > preferedTemp) {
+      //accessories
+      clothing.suggestionList.add("umbrella");
+
+      //tops
+      if (clothing.topList.has("t-shirt-image")) {
+        clothing.suggestionList.add("t-shirt-image");
+      } else {
+        clothing.suggestionList.add("long-sleeve");
+      }
+
+      //bottoms
+      if (clothing.bottomList.has("shorts")) {
+        clothing.suggestionList.add("shorts");
+      } else {
+        clothing.suggestionList.add("pants");
+      }
+
+      //shoes
+      if (currentUserInformation.answers[8] === "Boots") {
+        if (clothing.shoeList.has("rain-boots")) {
+          clothing.suggestionList.add("rain-boots");
+        } else {
+          clothing.suggestionList.add("sandals");
+        }
+      } else if (currentUserInformation.answers[8] === "Closed Toe Shoes") {
+        clothing.suggestionList.add("sneakers");
+      } else {
+        clothing.suggestionList.add("sandals");
+      }
+      //This scenario is if it is raining but really cold rain
+    } else if (currentTemperature < preferedTemp && currentTemperature < 40) {
+      //accessories
+      clothing.suggestionList.add("umbrella");
+      if (clothing.accessorieList.has(hat)) {
+        clothing.suggestionList.add("hat");
+      }
+
+      //tops
+      clothing.suggestionList.add("sweater");
+      clothing.suggestionList.add("long-sleeve");
+      if (clothing.topList.has("rain-coat")) {
+        clothing.suggestionList.add("rain-coat");
+      }
+
+      //bottoms
+      clothing.suggestionList.add("pants");
+
+      //shoes
+      if (currentUserInformation.answers[8] === "Boots") {
+        if (clothing.shoeList.has("rain-boots")) {
+          clothing.suggestionList.add("rain-boots");
+        } else {
+          clothing.suggestionList.add("sneakers");
+        }
+      } else {
+        clothing.suggestionList.add("sneakers");
+      }
+
+      //raining at average temp
+    } else if (currentTemperature <= preferedTemp) {
+      //accessories
+      clothing.suggestionList.add("umbrella");
+      if (clothing.accessorieList.has(hat)) {
+        clothing.suggestionList.add("hat");
+      }
+
+      //tops
+      clothing.suggestionList.add("light-jacket");
+      clothing.suggestionList.add("long-sleeve");
+
+      //bottoms
+      clothing.suggestionList.add("pants");
+
+      //shoes
+      if (currentUserInformation.answers[8] === "Boots") {
+        if (clothing.shoeList.has("rain-boots")) {
+          clothing.suggestionList.add("rain-boots");
+        } else {
+          clothing.suggestionList.add("sneakers");
+        }
+      } else {
+        clothing.suggestionList.add("sneakers");
+      }
+    }
   } else if (currentWeatherCondition.includes("snow")) {
   } else if (
     currentWeatherCondition.includes("cloud") ||
     currentWeatherCondition.includes("overcast")
   ) {
   }
+
+  console.log(clothing.suggestionList);
 }
 
 //This function will initalize the data on the page
