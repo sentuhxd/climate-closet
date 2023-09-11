@@ -585,7 +585,7 @@ function displaySuggestions(suggestionObject) {
 
     //Picture guy
     var imgEl = document.createElement("img");
-    imgEl.setAttribute("src", "./assets/Item-Images/" + value + ".png");
+    imgEl.setAttribute("src", "./Assets/Item-Images/" + value + ".png");
     imgEl.setAttribute("alt", value);
 
     paragraphDivEl.appendChild(pEl);
